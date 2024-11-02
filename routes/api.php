@@ -3,6 +3,7 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\ExpansesController;
 
 Route::get('/user', function (Request $request) {
     return response()->json([
@@ -13,6 +14,10 @@ Route::get('/user', function (Request $request) {
 
 Route::post('/newUser', [App\Http\Controllers\UserController::class, 'store']);
 Route::post('/login', [App\Http\Controllers\UserController::class, 'login']);
+Route::middleware('auth:sanctum')->group(function (){
+    Route::post('newExpanse', [ExpansesController::class, 'store']);
+});
+//Route::post('/newExpanse', [App\Http\Controllers\ExpansesController::class, 'store']);
 
 //Route::get('/user', function (Request $request) {
     //return $request->user();

@@ -14,7 +14,7 @@ class ExpensesResource extends JsonResource
      * @return array<string, mixed>
      */
 
-    public function createExpense($data)
+    public function create($data)
     {
         $expense = new Expanses();
         $expense->user_id = $data['user_id'];
@@ -23,6 +23,25 @@ class ExpensesResource extends JsonResource
         $expense->date = $data['date'];
         $expense->save();
         return $expense;
+    }
+
+    public function delete($id)
+    {
+        $expense = Expanses::find($id);
+        $expense->delete();
+        return $expense;
+    }
+
+    public function getById($id)
+    {
+        $expense = Expanses::find($id);
+        return $expense;
+    }
+
+    public function getByUserId($user_id)
+    {
+        $expenses = Expanses::where('user_id', $user_id)->get();
+        return $expenses;
     }
 
 
@@ -37,17 +56,5 @@ class ExpensesResource extends JsonResource
         ];
     }
 
-    public function with($request): array
-    {
-        return [
-            'status' => 'success',
-            'message' => 'Expenses created successfully',
-        ];
-    }
-
-    public function withResponse($request, $response): void
-    {
-        $response->setStatusCode(201);
-    }
     
 }

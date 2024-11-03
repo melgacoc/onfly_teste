@@ -2,7 +2,7 @@
 
 namespace App\Policies;
 
-use App\Models\Expenses;
+use App\Models\Expanses;
 use App\Models\User;
 use Illuminate\Auth\Access\Response;
 
@@ -19,7 +19,7 @@ class ExpensesPolicy
     /**
      * Determine whether the user can view the model.
      */
-    public function view(User $user, Expenses $expense): bool
+    public function view(User $user, Expanses $expense): bool
     {
         return $user->id === $expense->user_id;
     }
@@ -35,7 +35,7 @@ class ExpensesPolicy
     /**
      * Determine whether the user can update the model.
      */
-    public function update(User $user, Expenses $expense): bool
+    public function update(User $user, Expanses $expense): bool
     {
         return $user->id === $expense->user_id;
     }
@@ -43,7 +43,7 @@ class ExpensesPolicy
     /**
      * Determine whether the user can delete the model.
      */
-    public function delete(User $user, Expenses $expense): bool
+    public function delete(User $user, Expanses $expense): bool
     {
         return $user->id === $expense->user_id;
     }

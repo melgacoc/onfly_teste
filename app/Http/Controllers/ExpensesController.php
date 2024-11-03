@@ -5,16 +5,21 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Expanses;
-use Illuminate\Support\Facades\Mail;
 use App\Http\Services\ExpensesService;
 use App\Notifications\ExpensesCreated;
+use App\Http\Resources\ExpensesResource;
+use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 
 class ExpensesController extends Controller
 {
+    use AuthorizesRequests;
+
     public function index()
     {
         $user = Auth::user();
-        $expenses = Expanses::where('user_id', $user->id)->get();
+        $resource = new ExpensesResource($user->id);
+        $expenses = $resource->getByUserId($user->id);
+        //$expenses = Expanses::where('user_id', $user->id)->get();
 
         if ($expenses->isEmpty()) {
             return response()->json([
@@ -60,13 +65,16 @@ class ExpensesController extends Controller
         ], 500);
     }
 
-    # fazer passagem para a service
-    public function delete($id)
+    public function destroy($id)
     {
-        $user = Auth::user();
-        $expense = Expanses::where('user_id', $user->id)->where('id', $id)->first();
-        if ($expense) {
-            $expense->delete();
+        //$expense = Expanses::find($id);
+        $resource = new ExpensesResource($id);
+        $expense = $resource->getById($id);
+
+        $this->authorize('delete', $expense);
+        $service = new ExpensesService();
+        $response = $service->deleteExpense($id);
+        if ($response) {
             return response()->json([
                 'status' => 'success',
                 'message' => 'Expense deleted successfully',

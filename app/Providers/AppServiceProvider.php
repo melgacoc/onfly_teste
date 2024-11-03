@@ -20,12 +20,6 @@ class AppServiceProvider extends ServiceProvider
         //
     }
     
-    public function boot(): void
-    {
-        Gate::guessPolicyNamesUsing(function ($modelClass) {
-            return 'App\\Policies\\' . class_basename($modelClass) . 'Policy';
-        });
-    }
     /**
      * Bootstrap any application services.
      */

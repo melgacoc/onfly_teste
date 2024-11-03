@@ -4,6 +4,7 @@ namespace App\Http\Services;
 
 use App\Http\Resources\UserResource;
 use Illuminate\Support\Facades\Hash;
+use App\Models\User;
 
 class UserService
 {

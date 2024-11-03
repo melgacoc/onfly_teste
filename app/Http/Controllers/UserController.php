@@ -6,10 +6,11 @@ use Illuminate\Http\Request;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
+use App\Http\Services\UserService;
 
 class UserController extends Controller
 {
-    public function store(Request $request)
+    public function store(Request $request) 
     {
         $request->validate([
             'name' => 'required',
@@ -21,17 +22,10 @@ class UserController extends Controller
         $user->name = $request->name;
         $user->email = $request->email;
         $user->password = bcrypt($request->password);
-        $user->save();
-        $token = $user->createToken('auth_token')->plainTextToken;
-        return response()->json([
-            'user' => [
-                'name' => $user->name,
-                'email' => $user->email,
-                'token' => $token,
-            ],
-            'status' => 'success',
-            'message' => 'User created successfully',
-        ], 201);
+        $service = new UserService();
+        $response = $service->create($user);
+
+        return $response;
     }
 
     public function login(Request $request)
@@ -41,24 +35,10 @@ class UserController extends Controller
             'password' => 'required',
         ]);
 
-        $user = User::where('email', $request->email)->first();
+        $userData = $request->only('email', 'password');
+        $service = new UserService();
+        $response = $service->login($userData);
 
-        if (!$user || !Hash::check($request->password, $user->password)) {
-            return response()->json([
-                'status' => 'error',
-                'message' => 'Invalid credentials',
-            ], 401);
-        }
-
-        $token = $user->createToken('auth_token')->plainTextToken;
-
-        return response()->json([
-            'user' => [
-                'name' => $user->name,
-                'email' => $user->email,
-                'token' => $token,
-            ],
-            'status' => 'success',
-        ]);
+        return $response;
     }
 }

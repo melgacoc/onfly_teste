@@ -4,20 +4,16 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\User;
-use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Auth;
+use App\Http\Requests\UserRequest;
 use App\Http\Services\UserService;
 
 class UserController extends Controller
 {
-    public function store(Request $request) 
+    public function store(UserRequest $request) 
     {
-        $request->validate([
-            'name' => 'required',
-            'email' => 'required|email',
-            'password' => 'required',
-        ]);
-
+        if ($request->has('message')) {
+            return response()->json(['message' => $request->message]);
+        }
         $user = new User();
         $user->name = $request->name;
         $user->email = $request->email;
@@ -28,7 +24,7 @@ class UserController extends Controller
         return $response;
     }
 
-    public function login(Request $request)
+    public function login(UserRequest $request)
     {
         $request->validate([
             'email' => 'required|email',

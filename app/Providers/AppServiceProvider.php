@@ -3,11 +3,6 @@
 namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
-use Illuminate\Support\Facades\Gate;
-use App\Models\User;
-use App\Models\Expenses;
-use App\Policies\ExpensesPolicy;
-use App\Policies\UserPolicy;
 
 
 class AppServiceProvider extends ServiceProvider

@@ -8,6 +8,7 @@ use App\Models\Expanses;
 use App\Http\Services\ExpensesService;
 use App\Notifications\ExpensesCreated;
 use App\Http\Resources\ExpensesResource;
+use App\Http\Requests\ExpensesRequest;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 
 class ExpensesController extends Controller
@@ -34,35 +35,32 @@ class ExpensesController extends Controller
         ], 200);
     }
 
-    public function store(Request $request)
+    public function store(ExpensesRequest $request)
     {
-        $request->validate([
-            'amount' => 'required',
-            'description' => 'required',
-            'date' => 'required',
-        ]);
-        $user = Auth::user();
+        $validatedData = $request->validated(); 
 
-        $expanses = new Expanses();
-        $service = new ExpensesService();
-        $expanses->amount = $request->amount;
-        $expanses->description = $request->description;
-        $expanses->date = $request->date;
-        $expanses->user_id = $user->id;
-        $response = $service->createExpense($expanses, $user);
+    $user = Auth::user();
 
-        if ($response['id']) {
-            return response()->json([
-                'expanses' => $response,
-                'status' => 'success',
-                'message' => 'Expenses created successfully',
-            ], 201);
-        }
+    $expanses = new Expanses();
+    $service = new ExpensesService();
+    $expanses->amount = $validatedData['amount'];
+    $expanses->description = $validatedData['description'];
+    $expanses->date = $validatedData['date'];
+    $expanses->user_id = $user->id;
+    $response = $service->createExpense($expanses, $user);
 
+    if ($response['id']) {
         return response()->json([
-            'status' => 'error',
-            'message' => 'Error creating expenses',
-        ], 500);
+            'expanses' => $response,
+            'status' => 'success',
+            'message' => 'Expenses created successfully',
+        ], 201);
+    }
+
+    return response()->json([
+        'status' => 'error',
+        'message' => 'Error creating expenses',
+    ], 500);
     }
 
     public function destroy($id)

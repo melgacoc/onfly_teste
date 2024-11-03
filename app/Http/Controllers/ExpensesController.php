@@ -4,11 +4,11 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use App\Models\Expanses;
+use App\Models\Expenses;
 use Illuminate\Support\Facades\Mail;
 use App\Notifications\ExpensesCreated;
 
-class ExpansesController extends Controller
+class ExpensesController extends Controller
 {
     public function store(Request $request)
     {
@@ -19,7 +19,7 @@ class ExpansesController extends Controller
         ]);
         $user = Auth::user();
 
-        $expanses = new Expanses();
+        $expanses = new Expenses();
         $expanses->amount = $request->amount;
         $expanses->description = $request->description;
         $expanses->date = $request->date;

@@ -74,8 +74,8 @@ O projeto possui um docker composer. Se preferir pode executa-lo. Após abra o b
 
 ### Operações
 
+Consulte a collection do Postman presente na raiz do projeto.
 Construído usando o modelo de API Restfull possíu as seguintes operações:
-Consulte a collection do Postman presente na raiz do projeto
 
 ## User
 

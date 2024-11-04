@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Inertia\Inertia;
 
 class UserRequest extends FormRequest
 {
@@ -13,7 +14,18 @@ class UserRequest extends FormRequest
     {
         return true;
     }
-
+    /**
+     * Handle a failed validation attempt.
+     *
+     * @param \Illuminate\Contracts\Validation\Validator $validator
+     * @return void
+     *
+     * @throws \Illuminate\Validation\ValidationException
+     */
+    protected function failedValidation(\Illuminate\Contracts\Validation\Validator $validator)
+    {
+        throw new \Illuminate\Validation\ValidationException($validator, response()->json($validator->errors(), 422));
+    }
     /**
      * Get the validation rules that apply to the request.
      *

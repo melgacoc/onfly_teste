@@ -39,28 +39,28 @@ class ExpensesController extends Controller
     {
         $validatedData = $request->validated(); 
 
-    $user = Auth::user();
+        $user = Auth::user();
 
-    $expanses = new Expanses();
-    $service = new ExpensesService();
-    $expanses->amount = $validatedData['amount'];
-    $expanses->description = $validatedData['description'];
-    $expanses->date = $validatedData['date'];
-    $expanses->user_id = $user->id;
-    $response = $service->createExpense($expanses, $user);
+        $expanses = new Expanses();
+        $service = new ExpensesService();
+        $expanses->amount = $validatedData['amount'];
+        $expanses->description = $validatedData['description'];
+        $expanses->date = $validatedData['date'];
+        $expanses->user_id = $user->id;
+        $response = $service->createExpense($expanses, $user);
 
-    if ($response['id']) {
+        if ($response['id']) {
+            return response()->json([
+                'expanses' => $response,
+                'status' => 'success',
+                'message' => 'Expenses created successfully',
+            ], 201);
+        }
+
         return response()->json([
-            'expanses' => $response,
-            'status' => 'success',
-            'message' => 'Expenses created successfully',
-        ], 201);
-    }
-
-    return response()->json([
-        'status' => 'error',
-        'message' => 'Error creating expenses',
-    ], 500);
+            'status' => 'error',
+            'message' => 'Error creating expenses',
+        ], 500);
     }
 
     public function destroy($id)

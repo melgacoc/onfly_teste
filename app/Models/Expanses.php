@@ -15,5 +15,6 @@ class Expanses extends Model
         'amount',
         'description',
         'date',
+        'user_id',
     ];
 }

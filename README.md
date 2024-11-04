@@ -1,66 +1,116 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# Teste Onfly Backend
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+Este é o CRUD para o teste técnico da Onfly construído com PHP, Laravel, MySQL e PHPUnit. A API gerência autenticação de usuários e gerenciamento de despesas;
 
-## About Laravel
+## Funcionalidades
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+- **Autenticação de Usuários**: Registre e autentique usuários com senhas criptografadas.
+- **Gerenciamento de Despesas**: Cadastre uma nova despesa e receba um email relatando o cadastro.
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+## Tecnologias
+![Javascript Badge](https://img.shields.io/badge/JavaScript-323330?style=for-the-badge&logo=javascript&logoColor=F7DF1E)
+![Node Badge](https://img.shields.io/badge/Node.js-339933?style=for-the-badge&logo=nodedotjs&logoColor=white)
+![MongoDB](https://img.shields.io/badge/MongoDB-4EA94B?style=for-the-badge&logo=mongodb&logoColor=white)
+![Graphql](https://img.shields.io/badge/GraphQl-E10098?style=for-the-badge&logo=graphql&logoColor=white)
+![Postman](https://img.shields.io/badge/Postman-FF6C37?style=for-the-badge&logo=Postman&logoColor=white)
+![JWT](https://img.shields.io/badge/JWT-000000?style=for-the-badge&logo=JSON%20web%20tokens&logoColor=white)
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+## Primeiros Passos
 
-## Learning Laravel
+### Pré-requisitos
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+- PHP (v8.2 ou superior)
+- Composer
+- Docker
+- Docker composer (Opcional)
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+### Instalação
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+1. Clone o repositório:
 
-## Laravel Sponsors
+```bash
+git@github.com:melgacoc/onfly_teste.git
+cd onfly_teste
+```
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+2. Instale as dependências:
+```bash
+composer install
+```
 
-### Premium Partners
+3. Rode as migrations:
+```bash
+php artisan migrate
+```
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[WebReinvent](https://webreinvent.com/)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Jump24](https://jump24.co.uk)**
-- **[Redberry](https://redberry.international/laravel/)**
-- **[Active Logic](https://activelogic.com)**
-- **[byte5](https://byte5.de)**
-- **[OP.GG](https://op.gg)**
+4. Instale as dependências:
+```bash
+php artisan passport:install
+```
 
-## Contributing
+5. Configure as variáveis de ambiente com o env example
+   
+6. Suba o banco de dados
+ ```bash
+docker run -d \
+  --name mysql-container \
+  -e MYSQL_DATABASE=teste_onfly_claudio \
+  -e MYSQL_USER=root \
+  -e MYSQL_PASSWORD= \
+  -e MYSQL_ROOT_PASSWORD=root_password \
+  -p 3306:3306 \
+  mysql:5.7
+```
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+7. Inicie o servidor
+```bash
+php artisan serve
+```
 
-## Code of Conduct
+O projeto possui um docker composer. Se preferir pode executa-lo. Após abra o bash do container da aplicação e rode os comandos.
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+### Operações
 
-## Security Vulnerabilities
+Construído usando o modelo de API Restfull possíu as seguintes operações:
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+## User
 
-## License
+### Login
+Utilizando a rota /api/login e passando um body do tipo:
+{
+   "email": string,
+   "senha": string
+}
+Receberá um retorno contando um sucesso ou falha em caso de credenciais incorretas. No caso de sucesso um token será retornado que servirá como autenticador para as requisições de Expanses
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+### Criar novo usuário
+Utilizando a rota /api/newUser e passando um body do tipo:
+{
+   "nome": string [Campo não pode ser do tipo vazio],
+   "email": string [Campo não pode ser do tipo vazio e estring precisa seguir o modelo email contendo "@email.com"],
+   "senha": string [Campo não pode ser do tipo vazio e precisa ter mais que 7 caracteres]
+}
+
+Receberá um retorno contando um sucesso ou falha em caso de credenciais incorretas. No caso de sucesso um token será retornado que servirá como autenticador para as requisições de Expanses
+
+## Expanses
+
+### Vizualizar despesas cadastradas
+Ao fazer um get na rota /api/expenses uma lista de despesas será retornada, se houver alguma cadastrada, que estiver relacionada ao usuário associado ao token passado em Authorization.
+
+### Cadastrar uma nova despesa
+Ao fazer um post na rota /api/expenses passando o seguinte body:
+{
+   "description": string [Campo não pode ser vazio e maior que 191 caracteres],
+   "amount": number [Campo não pode ser vazio e negativo],
+   "date": date (YYYY/MM/DD) [Campo não pode ser vazio e ter uma data futura à criação da despesa]
+}
+
+A rota cadastra o user_id na tabela pelo id do usuário associado ao token passado para a requisição.
+
+### Deletar uma despesa
+Ao fazer um delete na rota /api/expenses/{id_expense} a despesa será excluída, se existir. Somente o usuário relacionado ao user_id da despesa poderá excluí-la
+
+
+
+   

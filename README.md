@@ -8,12 +8,11 @@ Este é o CRUD para o teste técnico da Onfly construído com PHP, Laravel, MySQ
 - **Gerenciamento de Despesas**: Cadastre uma nova despesa e receba um email relatando o cadastro.
 
 ## Tecnologias
-![Javascript Badge](https://img.shields.io/badge/JavaScript-323330?style=for-the-badge&logo=javascript&logoColor=F7DF1E)
-![Node Badge](https://img.shields.io/badge/Node.js-339933?style=for-the-badge&logo=nodedotjs&logoColor=white)
-![MongoDB](https://img.shields.io/badge/MongoDB-4EA94B?style=for-the-badge&logo=mongodb&logoColor=white)
-![Graphql](https://img.shields.io/badge/GraphQl-E10098?style=for-the-badge&logo=graphql&logoColor=white)
+![PHP Badge](https://img.shields.io/badge/PHP-777BB4?style=for-the-badge&logo=php&logoColor=white)
+![Laravel Badge](https://img.shields.io/badge/Laravel-FF2D20?style=for-the-badge&logo=laravel&logoColor=white)
+![MySQL](https://img.shields.io/badge/MySQL-005C84?style=for-the-badge&logo=mysql&logoColor=white)
+![Docker](https://img.shields.io/badge/Docker-2CA5E0?style=for-the-badge&logo=docker&logoColor=white)
 ![Postman](https://img.shields.io/badge/Postman-FF6C37?style=for-the-badge&logo=Postman&logoColor=white)
-![JWT](https://img.shields.io/badge/JWT-000000?style=for-the-badge&logo=JSON%20web%20tokens&logoColor=white)
 
 ## Primeiros Passos
 
@@ -23,6 +22,7 @@ Este é o CRUD para o teste técnico da Onfly construído com PHP, Laravel, MySQ
 - Composer
 - Docker
 - Docker composer (Opcional)
+- Postman 
 
 ### Instalação
 
@@ -77,19 +77,19 @@ Construído usando o modelo de API Restfull possíu as seguintes operações:
 
 ### Login
 Utilizando a rota /api/login e passando um body do tipo:<br/>
-{
-   "email": string,
-   "senha": string
-}
+{<br/>
+   "email": string,<br/>
+   "senha": string<br/>
+}<br/>
 Receberá um retorno contando um sucesso ou falha em caso de credenciais incorretas. No caso de sucesso um token será retornado que servirá como autenticador para as requisições de Expanses
 
 ### Criar novo usuário
-Utilizando a rota /api/newUser e passando um body do tipo:
-{
-   "nome": string [Campo não pode ser do tipo vazio],
-   "email": string [Campo não pode ser do tipo vazio e estring precisa seguir o modelo email contendo "@email.com"],
-   "senha": string [Campo não pode ser do tipo vazio e precisa ter mais que 7 caracteres]
-}
+Utilizando a rota /api/newUser e passando um body do tipo:<br/>
+{<br/>
+   "nome": string [Campo não pode ser do tipo vazio],<br/>
+   "email": string [Campo não pode ser do tipo vazio e estring precisa seguir o modelo email contendo "@email.com"],<br/>
+   "senha": string [Campo não pode ser do tipo vazio e precisa ter mais que 7 caracteres]<br/>
+}<br/>
 
 Receberá um retorno contando um sucesso ou falha em caso de credenciais incorretas. No caso de sucesso um token será retornado que servirá como autenticador para as requisições de Expanses
 
@@ -99,12 +99,12 @@ Receberá um retorno contando um sucesso ou falha em caso de credenciais incorre
 Ao fazer um get na rota /api/expenses uma lista de despesas será retornada, se houver alguma cadastrada, que estiver relacionada ao usuário associado ao token passado em Authorization.
 
 ### Cadastrar uma nova despesa
-Ao fazer um post na rota /api/expenses passando o seguinte body:
-{
-   "description": string [Campo não pode ser vazio e maior que 191 caracteres],
-   "amount": number [Campo não pode ser vazio e negativo],
-   "date": date (YYYY/MM/DD) [Campo não pode ser vazio e ter uma data futura à criação da despesa]
-}
+Ao fazer um post na rota /api/expenses passando o seguinte body:<br/>
+{<br/>
+   "description": string [Campo não pode ser vazio e maior que 191 caracteres],<br/>
+   "amount": number [Campo não pode ser vazio e negativo],<br/>
+   "date": date (YYYY/MM/DD) [Campo não pode ser vazio e ter uma data futura à criação da despesa]<br/>
+}<br/>
 
 A rota cadastra o user_id na tabela pelo id do usuário associado ao token passado para a requisição.
 

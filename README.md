@@ -48,17 +48,20 @@ php artisan migrate
 php artisan passport:install
 ```
 
-5. Configure as variáveis de ambiente com o env example
+5. Configure as variáveis de ambiente com o env example. Rode o comando para gerar chave aleatoria de criptografia
+```bash
+php artisan key:generate
+```
    
 6. Suba o banco de dados
  ```bash
-docker run -d \
-  --name mysql-container \
-  -e MYSQL_DATABASE=teste_onfly_claudio \
-  -e MYSQL_USER=root \
-  -e MYSQL_PASSWORD= \
-  -e MYSQL_ROOT_PASSWORD=root_password \
-  -p 3306:3306 \
+docker run -d
+  --name mysql-container
+  -e MYSQL_DATABASE=teste_onfly_claudio
+  -e MYSQL_USER=root
+  -e MYSQL_PASSWORD=
+  -e MYSQL_ROOT_PASSWORD=root_password
+  -p 3306:3306
   mysql:5.7
 ```
 
@@ -72,6 +75,7 @@ O projeto possui um docker composer. Se preferir pode executa-lo. Após abra o b
 ### Operações
 
 Construído usando o modelo de API Restfull possíu as seguintes operações:
+Consulte a collection do Postman presente na raiz do projeto
 
 ## User
 

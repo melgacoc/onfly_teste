@@ -76,7 +76,7 @@ Construído usando o modelo de API Restfull possíu as seguintes operações:
 ## User
 
 ### Login
-Utilizando a rota /api/login e passando um body do tipo:
+Utilizando a rota /api/login e passando um body do tipo:<br/>
 {
    "email": string,
    "senha": string
